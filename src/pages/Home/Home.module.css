@@ -1,0 +1,99 @@
+.home {
+  min-height: calc(100vh - 80px);
+}
+
+.hero {
+  background: linear-gradient(135deg, #ff385c 0%, #e00b41 100%);
+  color: white;
+  text-align: center;
+  padding: 80px 0;
+}
+
+.heroContent {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.heroTitle {
+  font-size: 48px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  line-height: 1.1;
+}
+
+.heroSubtitle {
+  font-size: 20px;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+.searchSection {
+  padding: 40px 0;
+  background: #f7f7f7;
+}
+
+.searchContainer {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.searchInput {
+  font-size: 16px;
+  padding: 16px 20px;
+  border-radius: 32px;
+  border: 1px solid #dddddd;
+  background: white;
+}
+
+.categorySelect {
+  padding: 16px 20px;
+  border-radius: 32px;
+  border: 1px solid #dddddd;
+  background: white;
+  min-width: 180px;
+}
+
+.toolsSection {
+  padding: 40px 0;
+}
+
+.toolsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.loading {
+  padding: 80px 0;
+  text-align: center;
+  font-size: 18px;
+  color: #717171;
+}
+
+.noResults {
+  text-align: center;
+  padding: 80px 0;
+  color: #717171;
+  font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 32px;
+  }
+
+  .heroSubtitle {
+    font-size: 18px;
+  }
+
+  .searchContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .toolsGrid {
+    grid-template-columns: 1fr;
+  }
+}
