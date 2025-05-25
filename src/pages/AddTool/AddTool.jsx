@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
 import { useAuth } from '../../contexts/AuthContext'
 import styles from './AddTool.module.css'
+import Compressor from 'compressorjs'
 
 const AddTool = () => {
   const { user } = useAuth()
@@ -41,22 +42,33 @@ const AddTool = () => {
     if (!file) return
     setUploading(true)
     setError('')
-    try {
-      const fileExt = file.name.split('.').pop()
-      const fileName = `${user.id}_${Date.now()}.${fileExt}`
-      const { data, error } = await supabase.storage
-        .from('tool-images')
-        .upload(fileName, file)
-      if (error) throw error
-      const { data: publicUrlData } = supabase.storage
-        .from('tool-images')
-        .getPublicUrl(fileName)
-      setFormData(prev => ({ ...prev, image_url: publicUrlData.publicUrl }))
-    } catch (error) {
-      setError('Image upload failed. ' + error.message)
-    } finally {
-      setUploading(false)
-    }
+    // Compress image before upload
+    new Compressor(file, {
+      quality: 0.6, // Adjust quality as needed (0-1)
+      maxWidth: 1200, // Optional: limit max width
+      success: async (compressedFile) => {
+        try {
+          const fileExt = file.name.split('.').pop()
+          const fileName = `${user.id}_${Date.now()}.${fileExt}`
+          const { data, error } = await supabase.storage
+            .from('tool-images')
+            .upload(fileName, compressedFile)
+          if (error) throw error
+          const { data: publicUrlData } = supabase.storage
+            .from('tool-images')
+            .getPublicUrl(fileName)
+          setFormData(prev => ({ ...prev, image_url: publicUrlData.publicUrl }))
+        } catch (error) {
+          setError('Image upload failed. ' + error.message)
+        } finally {
+          setUploading(false)
+        }
+      },
+      error: (err) => {
+        setError('Image compression failed. ' + err.message)
+        setUploading(false)
+      },
+    })
   }
 
   const handleSubmit = async (e) => {
@@ -160,13 +172,13 @@ const AddTool = () => {
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="description">Description *</label>
+            <label htmlFor="description">Description (optional)</label>
             <textarea
               id="description"
               name="description"
               value={formData.description}
               onChange={handleChange}
-              required
+              
               rows={4}
               placeholder="Describe your tool, its condition, and any special instructions for borrowers..."
             />

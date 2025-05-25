@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
+import { Link } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import styles from './ToolDetail.module.css'
 
@@ -117,11 +118,14 @@ const ToolDetail = () => {
               {/* <div className={styles.location}>📍 {tool.location}</div> */}
             </div>
 
-            <div className={styles.description}>
+{tool.description && (
+  <div className={styles.description}>
               <h3>Description</h3>
               <p>{tool.description}</p>
-            </div>
+      </div>
 
+  )}
+            
             {/* <div className={styles.owner}>
               <h3>Shared by</h3>
               <p>{tool.profiles?.full_name}</p>
@@ -201,7 +205,7 @@ const ToolDetail = () => {
 
             {isOwner && (
               <div className={styles.ownerNote}>
-                <p>This is your tool. You can manage it from your dashboard.</p>
+                <p>This is your tool. You can manage it from <Link style={{textDecoration:'underline'}} to={`/dashboard`}>your dashboard</Link>.</p>
               </div>
             )}
           </div>
