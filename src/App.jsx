@@ -8,7 +8,7 @@ import Register from './pages/Auth/Register'
 import Dashboard from './pages/Dashboard/Dashboard'
 import AddTool from './pages/AddTool/AddTool'
 import ToolDetail from './pages/ToolDetail/ToolDetail'
-import Profile from './pages/Profile/Profile'
+// import Profile from './pages/Profile/Profile'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 
 function App() {
@@ -36,14 +36,14 @@ function App() {
               </ProtectedRoute>
             } 
           />
-          <Route 
+          {/* <Route 
             path="/profile" 
             element={
               <ProtectedRoute>
                 <Profile />
               </ProtectedRoute>
             } 
-          />
+          /> */}
         </Routes>
       </Layout>
     </AuthProvider>

@@ -114,7 +114,7 @@ const ToolDetail = () => {
             <div className={styles.header}>
               <div className={styles.category}>{tool.category}</div>
               <h1 className={styles.title}>{tool.name}</h1>
-              <div className={styles.location}>📍 {tool.location}</div>
+              {/* <div className={styles.location}>📍 {tool.location}</div> */}
             </div>
 
             <div className={styles.description}>
@@ -122,11 +122,11 @@ const ToolDetail = () => {
               <p>{tool.description}</p>
             </div>
 
-            <div className={styles.owner}>
+            {/* <div className={styles.owner}>
               <h3>Shared by</h3>
               <p>{tool.profiles?.full_name}</p>
               <p className={styles.ownerLocation}>{tool.profiles?.location}</p>
-            </div>
+            </div> */}
 
             <div className={styles.availability}>
               <span className={`${styles.status} ${tool.is_available ? styles.available : styles.unavailable}`}>

@@ -12,20 +12,19 @@ const AddTool = () => {
     name: '',
     description: '',
     category: '',
-    location: '',
     image_url: '',
     is_available: true
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [uploading, setUploading] = useState(false)
 
   const categories = [
     'Power Tools',
     'Hand Tools',
-    'Garden Tools',
+    'Yard Equipment',
     'Automotive',
-    'Kitchen Appliances',
-    'Cleaning Equipment',
+    'Cycling tools',
     'Other'
   ]
 
@@ -35,6 +34,29 @@ const AddTool = () => {
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }))
+  }
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    setUploading(true)
+    setError('')
+    try {
+      const fileExt = file.name.split('.').pop()
+      const fileName = `${user.id}_${Date.now()}.${fileExt}`
+      const { data, error } = await supabase.storage
+        .from('tool-images')
+        .upload(fileName, file)
+      if (error) throw error
+      const { data: publicUrlData } = supabase.storage
+        .from('tool-images')
+        .getPublicUrl(fileName)
+      setFormData(prev => ({ ...prev, image_url: publicUrlData.publicUrl }))
+    } catch (error) {
+      setError('Image upload failed. ' + error.message)
+    } finally {
+      setUploading(false)
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -107,7 +129,7 @@ const AddTool = () => {
               </select>
             </div>
 
-            <div className={styles.field}>
+            {/* <div className={styles.field}>
               <label htmlFor="location">Location *</label>
               <input
                 id="location"
@@ -118,18 +140,22 @@ const AddTool = () => {
                 required
                 placeholder="City, State"
               />
-            </div>
+            </div> */}
 
             <div className={styles.field}>
-              <label htmlFor="image_url">Image URL (optional)</label>
+              <label htmlFor="image_upload">Upload Image</label>
               <input
-                id="image_url"
-                name="image_url"
-                type="url"
-                value={formData.image_url}
-                onChange={handleChange}
-                placeholder="https://example.com/image.jpg"
+                id="image_upload"
+                name="image_upload"
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                disabled={uploading}
               />
+              {uploading && <span>Uploading...</span>}
+              {formData.image_url && (
+                <img src={formData.image_url} alt="Preview" style={{ marginTop: 8, maxWidth: 200, borderRadius: 8 }} />
+              )}
             </div>
           </div>
 

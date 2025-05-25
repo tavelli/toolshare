@@ -20,20 +20,83 @@ const Register = () => {
     setError('')
 
     const { error } = await signUp(email, password, {
+      full_name: fullName,
       location: location
     })
-    
     if (error) {
       setError(error.message)
     } else {
-      // ...existing code...
+      navigate('/dashboard')
     }
-    
     setLoading(false)
   }
 
   return (
     <div className={styles.authPage}>
+      <div className="container">
+        <div className={styles.authContainer}>
+          <div className={styles.authCard}>
+            <h1 className={styles.title}>Join ToolShare</h1>
+            <p className={styles.subtitle}>Create your account to start sharing</p>
+            <form onSubmit={handleSubmit} className={styles.form}>
+              {error && (
+                <div className={styles.error}>{error}</div>
+              )}
+              <div className={styles.field}>
+                <label htmlFor="fullName">Full Name</label>
+                <input
+                  id="fullName"
+                  type="text"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  required
+                />
+              </div>
+              <div className={styles.field}>
+                <label htmlFor="email">Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              {/* <div className={styles.field}>
+                <label htmlFor="location">Location</label>
+                <input
+                  id="location"
+                  type="text"
+                  placeholder="City, State"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  required
+                />
+              </div> */}
+              <div className={styles.field}>
+                <label htmlFor="password">Password</label>
+                <input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+              <button 
+                type="submit" 
+                className={styles.submitButton}
+                disabled={loading}
+              >
+                {loading ? 'Creating account...' : 'Sign up'}
+              </button>
+            </form>
+            <p className={styles.switchAuth}>
+              Already have an account? <Link to="/login">Sign in</Link>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

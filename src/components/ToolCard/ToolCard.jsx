@@ -6,8 +6,17 @@ const ToolCard = ({ tool }) => {
   return (
     <Link to={`/tool/${tool.id}`} className={styles.card}>
       <div className={styles.imageContainer}>
+        {tool.image_url ? (
+          <img src={tool.image_url} alt={tool.name} className={styles.image} />
+        ) : (
+          <div className={styles.placeholder}>🔧</div>
+        )}
       </div>
       <div className={styles.content}>
+        <div className={styles.location}>{tool.location}</div>
+        <h3 className={styles.name}>{tool.name}</h3>
+        <p className={styles.description}>{tool.description}</p>
+        <div className={styles.category}>{tool.category}</div>
       </div>
     </Link>
   )
