@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
+import { supabase } from '../../lib/supabase'
 import styles from './Auth.module.css'
 
 const Login = () => {
@@ -8,7 +9,10 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  
+  const [resetEmail, setResetEmail] = useState('')
+  const [resetSent, setResetSent] = useState(false)
+  const [resetError, setResetError] = useState('')
+
   const { signIn } = useAuth()
   const navigate = useNavigate()
 
@@ -24,6 +28,24 @@ const Login = () => {
       navigate('/dashboard')
     }
     setLoading(false)
+  }
+
+  const handlePasswordReset = async (e) => {
+    e.preventDefault()
+    setResetError('')
+    setResetSent(false)
+    if (!resetEmail) {
+      setResetError('Please enter your email.')
+      return
+    }
+    const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
+      redirectTo: window.location.origin + '/login'
+    })
+    if (error) {
+      setResetError(error.message)
+    } else {
+      setResetSent(true)
+    }
   }
 
   return (
@@ -65,6 +87,26 @@ const Login = () => {
                 {loading ? 'Signing in...' : 'Sign in'}
               </button>
             </form>
+            <div style={{ marginTop: 16 }}>
+              <details>
+                <summary style={{ cursor: 'pointer', color: '#FF385C', fontWeight: 500 }}>Forgot password?</summary>
+                <form onSubmit={handlePasswordReset} style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={resetEmail}
+                    onChange={e => setResetEmail(e.target.value)}
+                    required
+                    style={{ padding: 10, borderRadius: 6, border: '1px solid #ddd' }}
+                  />
+                  <button type="submit" style={{ background: '#FF385C', color: 'white', border: 'none', borderRadius: 6, padding: '10px 0', fontWeight: 500 }}>
+                    Send reset link
+                  </button>
+                  {resetError && <div className={styles.error}>{resetError}</div>}
+                  {resetSent && <div style={{ color: '#10B981', fontWeight: 500 }}>Reset link sent! Check your email.</div>}
+                </form>
+              </details>
+            </div>
             <p className={styles.switchAuth}>
               Don't have an account? <Link to="/register">Sign up</Link>
             </p>
