@@ -20,7 +20,7 @@ const Header = () => {
         <div className={styles.headerContent}>
           <Link to="/" className={styles.logo}>
             <span className={styles.logoIcon}>🔧</span>
-            ToolShare
+            Morely Tool Share
           </Link>
 
           <nav className={styles.nav}>

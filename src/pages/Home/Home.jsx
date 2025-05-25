@@ -67,10 +67,10 @@ const Home = () => {
         <div className="container">
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitle}>
-              Share tools with your community
+              Morely tool share
             </h1>
             <p className={styles.heroSubtitle}>
-              Borrow tools from neighbors or share your own. Build a sustainable community together.
+              Borrow tools from neighbors and share your own!
             </p>
           </div>
         </div>

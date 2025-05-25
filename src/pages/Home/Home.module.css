@@ -6,7 +6,7 @@
   background: linear-gradient(135deg, #ff385c 0%, #e00b41 100%);
   color: white;
   text-align: center;
-  padding: 80px 0;
+  padding: 40px 0;
 }
 
 .heroContent {
@@ -49,7 +49,7 @@
 }
 
 .categorySelect {
-  padding: 16px 20px;
+  padding: 16px 36px 16px 20px; /* increase right padding for dropdown arrow */
   border-radius: 32px;
   border: 1px solid #dddddd;
   background: white;
