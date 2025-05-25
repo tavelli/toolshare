@@ -24,7 +24,10 @@ export const AuthProvider = ({ children }) => {
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => { /* ...existing code... */ }
+      async (event, session) => {
+        setUser(session?.user ?? null)
+        setLoading(false)
+      }
     )
 
     return () => subscription.unsubscribe()
@@ -34,7 +37,9 @@ export const AuthProvider = ({ children }) => {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: { /* ...existing code... */ }
+      options: {
+        data: metadata
+      }
     })
     return { data, error }
   }
