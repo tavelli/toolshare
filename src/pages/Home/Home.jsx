@@ -1,64 +1,69 @@
-import React, { useState, useEffect } from 'react'
-import { supabase } from '../../lib/supabase'
-import ToolCard from '../../components/ToolCard/ToolCard'
-import styles from './Home.module.css'
+import React, {useState, useEffect} from "react";
+import {supabase} from "../../lib/supabase";
+import ToolCard from "../../components/ToolCard/ToolCard";
+import styles from "./Home.module.css";
 
 const Home = () => {
-  const [tools, setTools] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState('')
+  const [tools, setTools] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const categories = [
-    'All Categories',
-    'Power Tools',
-    'Hand Tools',
-    'Garden Tools',
-    'Automotive',
-    'Kitchen Appliances',
-    'Cleaning Equipment',
-    'Other'
-  ]
+    "All Categories",
+    "Power Tools",
+    "Hand Tools",
+    "Garden Tools",
+    "Automotive",
+    "Kitchen Appliances",
+    "Cleaning Equipment",
+    "Other",
+  ];
 
   useEffect(() => {
-    fetchTools()
-  }, [])
+    fetchTools();
+  }, []);
 
   const fetchTools = async () => {
     try {
-      const { data, error } = await supabase
-        .from('tools')
-        .select(`
+      const {data, error} = await supabase
+        .from("tools")
+        .select(
+          `
           *,
           profiles (
             full_name
           )
-        `)
-        .eq('is_available', true)
-        .order('created_at', { ascending: false })
-      if (error) throw error
-      setTools(data || [])
+        `
+        )
+        .eq("is_available", true)
+        .order("created_at", {ascending: false});
+      if (error) throw error;
+      setTools(data || []);
     } catch (error) {
-      console.error('Error fetching tools:', error)
+      console.error("Error fetching tools:", error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
-  const filteredTools = tools.filter(tool => {
-    const matchesSearch = tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         tool.description.toLowerCase().includes(searchQuery.toLowerCase())
-    const matchesCategory = selectedCategory === '' || selectedCategory === 'All Categories' || 
-                           tool.category === selectedCategory
-    return matchesSearch && matchesCategory
-  })
+  const filteredTools = tools.filter((tool) => {
+    const matchesSearch =
+      tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      tool.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory =
+      selectedCategory === "" ||
+      selectedCategory === "All Categories" ||
+      tool.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   if (loading) {
     return (
       <div className={styles.loading}>
         <div className="container">Loading tools...</div>
       </div>
-    )
+    );
   }
 
   return (
@@ -66,9 +71,7 @@ const Home = () => {
       <div className={styles.hero}>
         <div className="container">
           <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>
-              Morely Tool Share
-            </h1>
+            <h1 className={styles.heroTitle}>Morely Tool Share</h1>
             <p className={styles.heroSubtitle}>
               Borrow and share tools with your neighbors!
             </p>
@@ -91,7 +94,7 @@ const Home = () => {
               onChange={(e) => setSelectedCategory(e.target.value)}
               className={styles.categorySelect}
             >
-              {categories.map(category => (
+              {categories.map((category) => (
                 <option key={category} value={category}>
                   {category}
                 </option>
@@ -104,7 +107,7 @@ const Home = () => {
       <div className={styles.toolsSection}>
         <div className="container">
           <div className={styles.toolsGrid}>
-            {filteredTools.map(tool => (
+            {filteredTools.map((tool) => (
               <ToolCard key={tool.id} tool={tool} />
             ))}
           </div>
@@ -116,7 +119,7 @@ const Home = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

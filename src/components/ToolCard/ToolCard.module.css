@@ -5,6 +5,7 @@
   overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
+  border: 1px solid #eee;
 }
 
 .card:hover {

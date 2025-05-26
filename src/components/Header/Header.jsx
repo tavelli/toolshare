@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../../contexts/AuthContext'
-import styles from './Header.module.css'
+import React, {useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {useAuth} from "../../contexts/AuthContext";
+import styles from "./Header.module.css";
 
 const Header = () => {
-  const { user, signOut } = useAuth()
-  const navigate = useNavigate()
-  const [showUserMenu, setShowUserMenu] = useState(false)
+  const {user, signOut} = useAuth();
+  const navigate = useNavigate();
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   const handleSignOut = async () => {
-    await signOut()
-    navigate('/')
-    setShowUserMenu(false)
-  }
+    await signOut();
+    navigate("/");
+    setShowUserMenu(false);
+  };
 
   return (
     <header className={styles.header}>
@@ -30,7 +30,7 @@ const Header = () => {
                   Share a tool
                 </Link>
                 <div className={styles.userMenuContainer}>
-                  <button 
+                  <button
                     className={styles.userMenuButton}
                     onClick={() => setShowUserMenu(!showUserMenu)}
                   >
@@ -41,16 +41,20 @@ const Header = () => {
                   </button>
                   {showUserMenu && (
                     <div className={styles.userMenuDropdown}>
-                      <Link to="/dashboard" onClick={() => setShowUserMenu(false)}>
+                      <Link
+                        to="/dashboard"
+                        onClick={() => setShowUserMenu(false)}
+                      >
                         My Dashboard
                       </Link>
-                      {/* <Link to="/profile" onClick={() => setShowUserMenu(false)}>
+                      <Link
+                        to={`/profile/${user.id}`}
+                        onClick={() => setShowUserMenu(false)}
+                      >
                         Profile
-                      </Link> */}
+                      </Link>
                       <hr />
-                      <button onClick={handleSignOut}>
-                        Sign out
-                      </button>
+                      <button onClick={handleSignOut}>Sign out</button>
                     </div>
                   )}
                 </div>
@@ -69,7 +73,7 @@ const Header = () => {
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

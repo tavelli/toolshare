@@ -1,8 +1,8 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import styles from './ToolCard.module.css'
+import React from "react";
+import {Link} from "react-router-dom";
+import styles from "./ToolCard.module.css";
 
-const ToolCard = ({ tool }) => {
+const ToolCard = ({tool}) => {
   return (
     <Link to={`/tool/${tool.id}`} className={styles.card}>
       <div className={styles.imageContainer}>
@@ -13,13 +13,11 @@ const ToolCard = ({ tool }) => {
         )}
       </div>
       <div className={styles.content}>
-        <div className={styles.location}>{tool.location}</div>
         <h3 className={styles.name}>{tool.name}</h3>
-        <p className={styles.description}>{tool.description}</p>
         <div className={styles.category}>{tool.category}</div>
       </div>
     </Link>
-  )
-}
+  );
+};
 
-export default ToolCard
+export default ToolCard;

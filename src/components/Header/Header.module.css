@@ -21,7 +21,7 @@
   align-items: center;
   font-size: 24px;
   font-weight: 600;
-  color: #ff385c;
+  color: #f96302;
 }
 
 .logoIcon {
@@ -56,13 +56,13 @@
   padding: 8px 16px;
   border-radius: 22px;
   font-weight: 500;
-  background-color: #ff385c;
+  background-color: #f96302;
   color: white;
   transition: background-color 0.2s;
 }
 
 .signupButton:hover {
-  background-color: #e00b41;
+  background-color: #d35400;
 }
 
 .hostButton {
@@ -73,7 +73,7 @@
 }
 
 .hostButton:hover {
-  background-color: #f7f7f7;
+  background-color: #ffe5d1;
 }
 
 .userMenu {
@@ -110,7 +110,7 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: #ff385c;
+  background: #f96302;
   color: white;
   display: flex;
   align-items: center;

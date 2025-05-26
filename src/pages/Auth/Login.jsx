@@ -1,52 +1,52 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../../contexts/AuthContext'
-import { supabase } from '../../lib/supabase'
-import styles from './Auth.module.css'
+import React, {useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {useAuth} from "../../contexts/AuthContext";
+import {supabase} from "../../lib/supabase";
+import styles from "./Auth.module.css";
 
 const Login = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [resetEmail, setResetEmail] = useState('')
-  const [resetSent, setResetSent] = useState(false)
-  const [resetError, setResetError] = useState('')
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
+  const [resetSent, setResetSent] = useState(false);
+  const [resetError, setResetError] = useState("");
 
-  const { signIn } = useAuth()
-  const navigate = useNavigate()
+  const {signIn} = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
+    e.preventDefault();
+    setLoading(true);
+    setError("");
 
-    const { error } = await signIn(email, password)
+    const {error} = await signIn(email, password);
     if (error) {
-      setError(error.message)
+      setError(error.message);
     } else {
-      navigate('/dashboard')
+      navigate("/dashboard");
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   const handlePasswordReset = async (e) => {
-    e.preventDefault()
-    setResetError('')
-    setResetSent(false)
+    e.preventDefault();
+    setResetError("");
+    setResetSent(false);
     if (!resetEmail) {
-      setResetError('Please enter your email.')
-      return
+      setResetError("Please enter your email.");
+      return;
     }
-    const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
-      redirectTo: window.location.origin + '/login'
-    })
+    const {error} = await supabase.auth.resetPasswordForEmail(resetEmail, {
+      redirectTo: window.location.origin + "/login",
+    });
     if (error) {
-      setResetError(error.message)
+      setResetError(error.message);
     } else {
-      setResetSent(true)
+      setResetSent(true);
     }
-  }
+  };
 
   return (
     <div className={styles.authPage}>
@@ -56,9 +56,7 @@ const Login = () => {
             <h1 className={styles.title}>Welcome back</h1>
             <p className={styles.subtitle}>Sign in to your ToolShare account</p>
             <form onSubmit={handleSubmit} className={styles.form}>
-              {error && (
-                <div className={styles.error}>{error}</div>
-              )}
+              {error && <div className={styles.error}>{error}</div>}
               <div className={styles.field}>
                 <label htmlFor="email">Email</label>
                 <input
@@ -79,31 +77,63 @@ const Login = () => {
                   required
                 />
               </div>
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className={styles.submitButton}
                 disabled={loading}
               >
-                {loading ? 'Signing in...' : 'Sign in'}
+                {loading ? "Signing in..." : "Sign in"}
               </button>
             </form>
-            <div style={{ marginTop: 16 }}>
+            <div style={{marginTop: 16}}>
               <details>
-                <summary style={{ cursor: 'pointer', color: '#FF385C', fontWeight: 500 }}>Forgot password?</summary>
-                <form onSubmit={handlePasswordReset} style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <summary
+                  style={{cursor: "pointer", color: "#FF385C", fontWeight: 500}}
+                >
+                  Forgot password?
+                </summary>
+                <form
+                  onSubmit={handlePasswordReset}
+                  style={{
+                    marginTop: 12,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 8,
+                  }}
+                >
                   <input
                     type="email"
                     placeholder="Enter your email"
                     value={resetEmail}
-                    onChange={e => setResetEmail(e.target.value)}
+                    onChange={(e) => setResetEmail(e.target.value)}
                     required
-                    style={{ padding: 10, borderRadius: 6, border: '1px solid #ddd' }}
+                    style={{
+                      padding: 10,
+                      borderRadius: 6,
+                      border: "1px solid #ddd",
+                    }}
                   />
-                  <button type="submit" style={{ background: '#FF385C', color: 'white', border: 'none', borderRadius: 6, padding: '10px 0', fontWeight: 500 }}>
+                  <button
+                    type="submit"
+                    style={{
+                      background: "#FF385C",
+                      color: "white",
+                      border: "none",
+                      borderRadius: 6,
+                      padding: "10px 0",
+                      fontWeight: 500,
+                    }}
+                  >
                     Send reset link
                   </button>
-                  {resetError && <div className={styles.error}>{resetError}</div>}
-                  {resetSent && <div style={{ color: '#10B981', fontWeight: 500 }}>Reset link sent! Check your email.</div>}
+                  {resetError && (
+                    <div className={styles.error}>{resetError}</div>
+                  )}
+                  {resetSent && (
+                    <div style={{color: "#10B981", fontWeight: 500}}>
+                      Reset link sent! Check your email.
+                    </div>
+                  )}
                 </form>
               </details>
             </div>
@@ -114,7 +144,7 @@ const Login = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
