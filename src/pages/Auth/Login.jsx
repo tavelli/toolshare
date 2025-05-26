@@ -39,7 +39,7 @@ const Login = () => {
       return;
     }
     const {error} = await supabase.auth.resetPasswordForEmail(resetEmail, {
-      redirectTo: window.location.origin + "/login",
+      redirectTo: window.location.origin + "/reset-password",
     });
     if (error) {
       setResetError(error.message);
@@ -87,9 +87,7 @@ const Login = () => {
             </form>
             <div style={{marginTop: 16}}>
               <details>
-                <summary
-                  style={{cursor: "pointer", color: "#FF385C", fontWeight: 500}}
-                >
+                <summary style={{cursor: "pointer", fontWeight: 500}}>
                   Forgot password?
                 </summary>
                 <form
@@ -116,7 +114,7 @@ const Login = () => {
                   <button
                     type="submit"
                     style={{
-                      background: "#FF385C",
+                      background: "#f96302",
                       color: "white",
                       border: "none",
                       borderRadius: 6,

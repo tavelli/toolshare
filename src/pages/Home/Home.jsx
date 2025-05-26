@@ -13,10 +13,9 @@ const Home = () => {
     "All Categories",
     "Power Tools",
     "Hand Tools",
-    "Garden Tools",
+    "Yard Equipment",
     "Automotive",
-    "Kitchen Appliances",
-    "Cleaning Equipment",
+    "Bicycle Tools",
     "Other",
   ];
 
@@ -30,10 +29,7 @@ const Home = () => {
         .from("tools")
         .select(
           `
-          *,
-          profiles (
-            full_name
-          )
+          *
         `
         )
         .eq("is_available", true)
@@ -73,7 +69,7 @@ const Home = () => {
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitle}>Morely Tool Share</h1>
             <p className={styles.heroSubtitle}>
-              Borrow and share tools with your neighbors!
+              Share your infrequently used tools with your neighbors!
             </p>
           </div>
         </div>

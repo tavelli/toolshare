@@ -40,11 +40,10 @@
 }
 
 .header {
-  margin-bottom: 16px;
 }
 
 .category {
-  color: #ff385c;
+  /* color: #ff385c; */
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 8px;
@@ -76,6 +75,10 @@
   font-size: 14px;
 }
 
+.ownerLink {
+  text-decoration: underline;
+}
+
 .availability {
   margin-bottom: 16px;
 }
@@ -99,11 +102,10 @@
 }
 
 .actions {
-  margin-top: 24px;
 }
 
 .requestButton {
-  background: #ff385c;
+  background: #f96302;
   color: white;
   padding: 12px 24px;
   border-radius: 8px;
@@ -113,7 +115,7 @@
 }
 
 .requestButton:hover:not(:disabled) {
-  background: #e00b41;
+  background: #d35400;
 }
 
 .requestForm {
@@ -159,7 +161,7 @@
 }
 
 .submitButton {
-  background: #ff385c;
+  background: #f96302;
   color: white;
   padding: 10px 20px;
   border-radius: 8px;
@@ -168,7 +170,7 @@
 }
 
 .submitButton:hover:not(:disabled) {
-  background: #e00b41;
+  background: #d35400;
 }
 
 .submitButton:disabled {

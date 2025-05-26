@@ -152,9 +152,9 @@ const Profile = () => {
               <div className={styles.profileField}>
                 <strong>Location:</strong> {profile.location}
               </div>
-              <div className={styles.profileField}>
+              {/* <div className={styles.profileField}>
                 <strong>Email:</strong> {profile.email}
-              </div>
+              </div> */}
             </>
           )}
         </div>

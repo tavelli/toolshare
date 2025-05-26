@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import AddTool from "./pages/AddTool/AddTool";
 import ToolDetail from "./pages/ToolDetail/ToolDetail";
 import Profile from "./pages/Profile/Profile";
+import ResetPassword from "./pages/Auth/ResetPassword";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/tool/:id" element={<ToolDetail />} />
+          <Route path="/profile/:id" element={<Profile />} />
           <Route
             path="/dashboard"
             element={
@@ -36,14 +38,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/profile/:id"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/reset-password" element={<ResetPassword />} />
         </Routes>
       </Layout>
     </AuthProvider>
