@@ -4,6 +4,7 @@ import {supabase} from "../../lib/supabase";
 import {Link} from "react-router-dom";
 import {useAuth} from "../../contexts/AuthContext";
 import styles from "./ToolDetail.module.css";
+import Modal from "../../components/Modal/Modal";
 
 const ToolDetail = () => {
   const {id} = useParams();
@@ -157,17 +158,20 @@ const ToolDetail = () => {
 
             {!isOwner && tool.is_available && (
               <div className={styles.actions}>
-                {!showRequestForm ? (
-                  <button
-                    onClick={() => setShowRequestForm(true)}
-                    className={styles.requestButton}
-                  >
-                    Request to Borrow
-                  </button>
-                ) : (
+                <button
+                  onClick={() => setShowRequestForm(true)}
+                  className={styles.requestButton}
+                >
+                  Request to Borrow
+                </button>
+                <Modal
+                  open={showRequestForm}
+                  onClose={() => setShowRequestForm(false)}
+                >
                   <form
                     onSubmit={handleRequestSubmit}
                     className={styles.requestForm}
+                    style={{boxShadow: "none", margin: 0}}
                   >
                     <h3>Request to Borrow</h3>
                     <div className={styles.dateFields}>
@@ -237,7 +241,7 @@ const ToolDetail = () => {
                       </button>
                     </div>
                   </form>
-                )}
+                </Modal>
               </div>
             )}
 

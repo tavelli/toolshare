@@ -4,6 +4,7 @@ import {supabase} from "../../lib/supabase";
 import {useAuth} from "../../contexts/AuthContext";
 import styles from "./Dashboard.module.css";
 import Compressor from "compressorjs";
+import Modal from "../../components/Modal/Modal";
 
 const Dashboard = () => {
   const {user} = useAuth();
@@ -246,100 +247,92 @@ const Dashboard = () => {
               )}
             </div>
             {editingTool && (
-              <div className={styles.editModal}>
-                <div className={styles.editModalContent}>
-                  <h2>Edit Tool</h2>
-                  <form onSubmit={handleEditSubmit} className={styles.editForm}>
-                    {editError && (
-                      <div className={styles.error}>{editError}</div>
+              <Modal open={!!editingTool} onClose={() => setEditingTool(null)}>
+                <h2>Edit Tool</h2>
+                <form onSubmit={handleEditSubmit} className={styles.editForm}>
+                  {editError && <div className={styles.error}>{editError}</div>}
+                  <div className={styles.field}>
+                    <label htmlFor="edit_name">Tool Name *</label>
+                    <input
+                      id="edit_name"
+                      name="name"
+                      type="text"
+                      value={editForm.name}
+                      onChange={handleEditChange}
+                      required
+                    />
+                  </div>
+                  <div className={styles.field}>
+                    <label htmlFor="edit_category">Category *</label>
+                    <input
+                      id="edit_category"
+                      name="category"
+                      type="text"
+                      value={editForm.category}
+                      onChange={handleEditChange}
+                      required
+                    />
+                  </div>
+                  <div className={styles.field}>
+                    <label htmlFor="edit_image">Image</label>
+                    <input
+                      id="edit_image"
+                      name="edit_image"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleEditImageUpload}
+                      disabled={editUploading}
+                    />
+                    {editUploading && <span>Uploading...</span>}
+                    {editForm.image_url && (
+                      <img
+                        src={editForm.image_url}
+                        alt="Preview"
+                        style={{marginTop: 8, maxWidth: 200, borderRadius: 8}}
+                      />
                     )}
-                    <div className={styles.field}>
-                      <label htmlFor="edit_name">Tool Name *</label>
+                  </div>
+                  <div className={styles.field}>
+                    <label htmlFor="edit_description">Description *</label>
+                    <textarea
+                      id="edit_description"
+                      name="description"
+                      value={editForm.description}
+                      onChange={handleEditChange}
+                      required
+                      rows={3}
+                    />
+                  </div>
+                  <div className={styles.field}>
+                    <label>
                       <input
-                        id="edit_name"
-                        name="name"
-                        type="text"
-                        value={editForm.name}
+                        type="checkbox"
+                        name="is_available"
+                        checked={editForm.is_available}
                         onChange={handleEditChange}
-                        required
                       />
-                    </div>
-                    <div className={styles.field}>
-                      <label htmlFor="edit_category">Category *</label>
-                      <input
-                        id="edit_category"
-                        name="category"
-                        type="text"
-                        value={editForm.category}
-                        onChange={handleEditChange}
-                        required
-                      />
-                    </div>
-                    <div className={styles.field}>
-                      <label htmlFor="edit_image">Image</label>
-                      <input
-                        id="edit_image"
-                        name="edit_image"
-                        type="file"
-                        accept="image/*"
-                        onChange={handleEditImageUpload}
-                        disabled={editUploading}
-                      />
-                      {editUploading && <span>Uploading...</span>}
-                      {editForm.image_url && (
-                        <img
-                          src={editForm.image_url}
-                          alt="Preview"
-                          style={{
-                            marginTop: 8,
-                            maxWidth: 200,
-                            borderRadius: 8,
-                          }}
-                        />
-                      )}
-                    </div>
-                    <div className={styles.field}>
-                      <label htmlFor="edit_description">Description *</label>
-                      <textarea
-                        id="edit_description"
-                        name="description"
-                        value={editForm.description}
-                        onChange={handleEditChange}
-                        required
-                        rows={3}
-                      />
-                    </div>
-                    <div className={styles.field}>
-                      <label>
-                        <input
-                          type="checkbox"
-                          name="is_available"
-                          checked={editForm.is_available}
-                          onChange={handleEditChange}
-                        />
-                        Available for borrowing
-                      </label>
-                    </div>
-                    <div className={styles.editActions}>
-                      <button
-                        type="button"
-                        className={styles.cancelButton}
-                        onClick={() => setEditingTool(null)}
-                        disabled={editLoading}
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        type="submit"
-                        className={styles.submitButton}
-                        disabled={editLoading}
-                      >
-                        {editLoading ? "Saving..." : "Save Changes"}
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
+                      Available for borrowing
+                    </label>
+                  </div>
+                  <div className={styles.editActions}>
+                    <button
+                      type="button"
+                      className={styles.cancelButton}
+                      onClick={() => setEditingTool(null)}
+                      disabled={editLoading}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className={styles.submitButton}
+                      disabled={editLoading}
+                    >
+                      {editLoading ? "Saving..." : "Save Changes"}
+                    </button>
+                  </div>
+                </form>
+              </Modal>
             )}
           </section>
 
@@ -355,7 +348,7 @@ const Dashboard = () => {
                       wants to borrow <strong>{request.tools?.name}</strong>
                     </p>
                     <p className={styles.requestDate}>
-                      From {new Date(request.start_date).toLocaleDateString()}
+                      From {new Date(request.start_date).toLocaleDateString()}{" "}
                       to {new Date(request.end_date).toLocaleDateString()}
                     </p>
                     {request.message && (

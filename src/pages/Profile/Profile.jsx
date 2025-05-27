@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {useAuth} from "../../contexts/AuthContext";
 import {supabase} from "../../lib/supabase";
+import ToolCard from "../../components/ToolCard/ToolCard";
 import styles from "./Profile.module.css";
 
 const Profile = () => {
@@ -152,9 +153,6 @@ const Profile = () => {
               <div className={styles.profileField}>
                 <strong>Location:</strong> {profile.location}
               </div>
-              {/* <div className={styles.profileField}>
-                <strong>Email:</strong> {profile.email}
-              </div> */}
             </>
           )}
         </div>
@@ -162,22 +160,7 @@ const Profile = () => {
           <h2>Tools Shared by {profile.full_name || "User"}</h2>
           <div className={styles.toolsGrid}>
             {tools.map((tool) => (
-              <div key={tool.id} className={styles.toolCard}>
-                <div className={styles.toolImage}>
-                  {tool.image_url ? (
-                    <img src={tool.image_url} alt={tool.name} />
-                  ) : (
-                    <div className={styles.placeholder}>🔧</div>
-                  )}
-                </div>
-                <div className={styles.toolInfo}>
-                  <h3>{tool.name}</h3>
-                  <p className={styles.category}>{tool.category}</p>
-                  <p className={styles.status}>
-                    Status: {tool.is_available ? "Available" : "Not Available"}
-                  </p>
-                </div>
-              </div>
+              <ToolCard key={tool.id} tool={tool} />
             ))}
             {tools.length === 0 && (
               <p className={styles.emptyState}>No tools shared yet.</p>

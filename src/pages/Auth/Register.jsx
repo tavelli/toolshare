@@ -67,7 +67,7 @@ const Register = () => {
                 <input
                   id="location"
                   type="text"
-                  placeholder="150 Auburn Rd"
+                  placeholder="eg. 123 Auburn Rd"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   required
