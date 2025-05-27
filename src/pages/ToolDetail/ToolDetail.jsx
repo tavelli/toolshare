@@ -159,7 +159,13 @@ const ToolDetail = () => {
             {!isOwner && tool.is_available && (
               <div className={styles.actions}>
                 <button
-                  onClick={() => setShowRequestForm(true)}
+                  onClick={() => {
+                    if (!user) {
+                      navigate("/register");
+                    } else {
+                      setShowRequestForm(true);
+                    }
+                  }}
                   className={styles.requestButton}
                 >
                   Request to Borrow
@@ -167,13 +173,13 @@ const ToolDetail = () => {
                 <Modal
                   open={showRequestForm}
                   onClose={() => setShowRequestForm(false)}
+                  header={"Request to Borrow Tool"}
                 >
                   <form
                     onSubmit={handleRequestSubmit}
                     className={styles.requestForm}
                     style={{boxShadow: "none", margin: 0}}
                   >
-                    <h3>Request to Borrow</h3>
                     <div className={styles.dateFields}>
                       <div className={styles.field}>
                         <label>Start Date</label>

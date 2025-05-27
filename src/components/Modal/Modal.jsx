@@ -1,19 +1,24 @@
 import React from "react";
 import styles from "./Modal.module.css";
 
-const Modal = ({open, onClose, children}) => {
+const Modal = ({open, header, footer, onClose, children}) => {
   if (!open) return null;
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <button
-          onClick={onClose}
-          className={styles.closeButton}
-          aria-label="Close"
-        >
-          ×
-        </button>
+        <header className={styles.header}>
+          <h2>{header}</h2>
+          <button
+            onClick={onClose}
+            className={styles.closeButton}
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </header>
+
         <div className={styles.body}>{children}</div>
+        <div className={styles.footer}>{footer}</div>
       </div>
     </div>
   );

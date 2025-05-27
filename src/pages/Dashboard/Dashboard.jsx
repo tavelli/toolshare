@@ -247,74 +247,92 @@ const Dashboard = () => {
               )}
             </div>
             {editingTool && (
-              <Modal open={!!editingTool} onClose={() => setEditingTool(null)}>
-                <h2>Edit Tool</h2>
-                <form onSubmit={handleEditSubmit} className={styles.editForm}>
+              <Modal
+                open={!!editingTool}
+                onClose={() => setEditingTool(null)}
+                header={"Edit Tool"}
+              >
+                <form
+                  onSubmit={handleEditSubmit}
+                  className={styles.form}
+                  style={{maxWidth: 800, margin: "0 auto"}}
+                >
                   {editError && <div className={styles.error}>{editError}</div>}
-                  <div className={styles.field}>
-                    <label htmlFor="edit_name">Tool Name *</label>
-                    <input
-                      id="edit_name"
-                      name="name"
-                      type="text"
-                      value={editForm.name}
-                      onChange={handleEditChange}
-                      required
-                    />
-                  </div>
-                  <div className={styles.field}>
-                    <label htmlFor="edit_category">Category *</label>
-                    <input
-                      id="edit_category"
-                      name="category"
-                      type="text"
-                      value={editForm.category}
-                      onChange={handleEditChange}
-                      required
-                    />
-                  </div>
-                  <div className={styles.field}>
-                    <label htmlFor="edit_image">Image</label>
-                    <input
-                      id="edit_image"
-                      name="edit_image"
-                      type="file"
-                      accept="image/*"
-                      onChange={handleEditImageUpload}
-                      disabled={editUploading}
-                    />
-                    {editUploading && <span>Uploading...</span>}
-                    {editForm.image_url && (
-                      <img
-                        src={editForm.image_url}
-                        alt="Preview"
-                        style={{marginTop: 8, maxWidth: 200, borderRadius: 8}}
+                  <div className={styles.formGrid}>
+                    <div className={styles.field}>
+                      <label htmlFor="edit_name">Tool Name *</label>
+                      <input
+                        id="edit_name"
+                        name="name"
+                        type="text"
+                        value={editForm.name}
+                        onChange={handleEditChange}
+                        required
+                        placeholder="e.g., Cordless Drill"
                       />
-                    )}
+                    </div>
+                    <div className={styles.field}>
+                      <label htmlFor="edit_category">Category *</label>
+                      <select
+                        id="edit_category"
+                        name="category"
+                        value={editForm.category}
+                        onChange={handleEditChange}
+                        required
+                      >
+                        <option value="">Select a category</option>
+                        <option value="Power Tools">Power Tools</option>
+                        <option value="Hand Tools">Hand Tools</option>
+                        <option value="Yard Equipment">Yard Equipment</option>
+                        <option value="Automotive">Automotive</option>
+                        <option value="Cycling tools">Cycling tools</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                    <div className={styles.field}>
+                      <label htmlFor="edit_image">Image</label>
+                      <input
+                        id="edit_image"
+                        name="edit_image"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleEditImageUpload}
+                        disabled={editUploading}
+                      />
+                      {editUploading && <span>Uploading...</span>}
+                      {editForm.image_url && (
+                        <img
+                          src={editForm.image_url}
+                          alt="Preview"
+                          style={{marginTop: 8, maxWidth: 200, borderRadius: 8}}
+                        />
+                      )}
+                    </div>
                   </div>
                   <div className={styles.field}>
-                    <label htmlFor="edit_description">Description *</label>
+                    <label htmlFor="edit_description">Description</label>
                     <textarea
                       id="edit_description"
                       name="description"
                       value={editForm.description}
                       onChange={handleEditChange}
-                      required
-                      rows={3}
+                      rows={4}
+                      placeholder="Describe your tool, its condition, and any special instructions for borrowers..."
                     />
                   </div>
-                  <div className={styles.field}>
-                    <label>
+                  <div className={styles.checkboxField}>
+                    <label className={styles.checkboxLabel}>
                       <input
                         type="checkbox"
                         name="is_available"
                         checked={editForm.is_available}
                         onChange={handleEditChange}
                       />
+                      <span className={styles.checkmark}></span>
                       Available for borrowing
                     </label>
                   </div>
-                  <div className={styles.editActions}>
+                  <div className={styles.actions}>
                     <button
                       type="button"
                       className={styles.cancelButton}
