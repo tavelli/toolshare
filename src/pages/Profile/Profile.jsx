@@ -150,9 +150,6 @@ const Profile = () => {
               <div className={styles.profileField}>
                 <strong>Name:</strong> {profile.full_name}
               </div>
-              <div className={styles.profileField}>
-                <strong>Location:</strong> {profile.location}
-              </div>
             </>
           )}
         </div>
