@@ -11,11 +11,10 @@
 
 .imageSection {
   flex: 0 0 360px;
-  background: #f7f7f7;
   border-radius: 16px;
   overflow: hidden;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   min-height: 360px;
 }

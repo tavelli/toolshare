@@ -20,6 +20,21 @@
   max-width: 400px;
 }
 
+@media (max-width: 550px) {
+  .authPage {
+    background-color: white;
+  }
+  .authContainer {
+    padding: 10px 0;
+  }
+  .authCard {
+    padding: 16px;
+    width: 90vw;
+    box-shadow: none;
+    background-color: #fff;
+  }
+}
+
 .title {
   font-size: 32px;
   font-weight: 600;
