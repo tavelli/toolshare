@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {supabase} from "../../lib/supabase";
+import {categories} from "../../lib/categories";
 import ToolCard from "../../components/ToolCard/ToolCard";
 import styles from "./Home.module.css";
 
@@ -8,16 +9,6 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-
-  const categories = [
-    "All Categories",
-    "Power Tools",
-    "Hand Tools",
-    "Yard Equipment",
-    "Automotive",
-    "Bicycle Tools",
-    "Other",
-  ];
 
   useEffect(() => {
     fetchTools();

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import {supabase} from "../../lib/supabase";
+import {categories} from "../../lib/categories";
 import {useAuth} from "../../contexts/AuthContext";
 import styles from "./Dashboard.module.css";
 import Compressor from "compressorjs";
@@ -280,13 +281,11 @@ const Dashboard = () => {
                         onChange={handleEditChange}
                         required
                       >
-                        <option value="">Select a category</option>
-                        <option value="Power Tools">Power Tools</option>
-                        <option value="Hand Tools">Hand Tools</option>
-                        <option value="Yard Equipment">Yard Equipment</option>
-                        <option value="Automotive">Automotive</option>
-                        <option value="Cycling tools">Cycling tools</option>
-                        <option value="Other">Other</option>
+                        {categories.map((category) => (
+                          <option key={category} value={category}>
+                            {category}
+                          </option>
+                        ))}
                       </select>
                     </div>
                     <div className={styles.field}>

@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {supabase} from "../../lib/supabase";
+import {categories} from "../../lib/categories";
 import {useAuth} from "../../contexts/AuthContext";
 import styles from "./AddTool.module.css";
 import Compressor from "compressorjs";
@@ -19,15 +20,6 @@ const AddTool = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [uploading, setUploading] = useState(false);
-
-  const categories = [
-    "Power Tools",
-    "Hand Tools",
-    "Yard Equipment",
-    "Automotive",
-    "Cycling tools",
-    "Other",
-  ];
 
   const handleChange = (e) => {
     const {name, value, type, checked} = e.target;
