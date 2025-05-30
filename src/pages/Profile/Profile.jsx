@@ -91,71 +91,77 @@ const Profile = () => {
     <div className={styles.profilePage}>
       <div className="container">
         <div className={styles.profileHeader}>
-          <h1>Profile</h1>
-        </div>
-        <div className={styles.profileInfo}>
-          {editMode ? (
-            <form onSubmit={handleEditSubmit} className={styles.editForm}>
-              {editError && <div className={styles.error}>{editError}</div>}
-              <div className={styles.field}>
-                <label htmlFor="full_name">Full Name</label>
-                <input
-                  id="full_name"
-                  name="full_name"
-                  type="text"
-                  value={editForm.full_name}
-                  onChange={handleEditChange}
-                  required
-                />
-              </div>
-              <div className={styles.field}>
-                <label htmlFor="location">Location</label>
-                <input
-                  id="location"
-                  name="location"
-                  type="text"
-                  value={editForm.location}
-                  onChange={handleEditChange}
-                  required
-                />
-              </div>
-              <div className={styles.editActions}>
-                <button
-                  type="button"
-                  className={styles.cancelButton}
-                  onClick={() => setEditMode(false)}
-                  disabled={editLoading}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className={styles.submitButton}
-                  disabled={editLoading}
-                >
-                  {editLoading ? "Saving..." : "Save Changes"}
-                </button>
-              </div>
-            </form>
+          {isOwnProfile ? (
+            <h1>Profile</h1>
           ) : (
-            <>
-              <div className={styles.profileField}>
-                <strong>Name:</strong> {profile.full_name}
-              </div>
-              {isOwnProfile && (
-                <>
-                  <div className={styles.profileField}>
-                    <strong>Email:</strong> {user.email}
-                  </div>
-                  <div className={styles.profileField}>
-                    <strong>Location:</strong>{" "}
-                    {profile.location || "Not specified"}
-                  </div>
-                </>
-              )}
-            </>
+            <h1>Tools Shared by {profile.full_name || "User"}</h1>
           )}
         </div>
+        {isOwnProfile && (
+          <div className={styles.profileInfo}>
+            {editMode ? (
+              <form onSubmit={handleEditSubmit} className={styles.editForm}>
+                {editError && <div className={styles.error}>{editError}</div>}
+                <div className={styles.field}>
+                  <label htmlFor="full_name">Full Name</label>
+                  <input
+                    id="full_name"
+                    name="full_name"
+                    type="text"
+                    value={editForm.full_name}
+                    onChange={handleEditChange}
+                    required
+                  />
+                </div>
+                <div className={styles.field}>
+                  <label htmlFor="location">Location</label>
+                  <input
+                    id="location"
+                    name="location"
+                    type="text"
+                    value={editForm.location}
+                    onChange={handleEditChange}
+                    required
+                  />
+                </div>
+                <div className={styles.editActions}>
+                  <button
+                    type="button"
+                    className={styles.cancelButton}
+                    onClick={() => setEditMode(false)}
+                    disabled={editLoading}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className={styles.submitButton}
+                    disabled={editLoading}
+                  >
+                    {editLoading ? "Saving..." : "Save Changes"}
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <>
+                <div className={styles.profileField}>
+                  <strong>Name:</strong> {profile.full_name}
+                </div>
+                {isOwnProfile && (
+                  <>
+                    <div className={styles.profileField}>
+                      <strong>Email:</strong> {user.email}
+                    </div>
+                    <div className={styles.profileField}>
+                      <strong>Location:</strong>{" "}
+                      {profile.location || "Not specified"}
+                    </div>
+                  </>
+                )}
+              </>
+            )}
+          </div>
+        )}
         {isOwnProfile && !editMode && (
           <button
             className={styles.editButton}
@@ -167,7 +173,6 @@ const Profile = () => {
 
         {!isOwnProfile && (
           <div className={styles.toolsSection}>
-            <h2>Tools Shared by {profile.full_name || "User"}</h2>
             <div className={styles.toolsGrid}>
               {tools.map((tool) => (
                 <ToolCard key={tool.id} tool={tool} />
