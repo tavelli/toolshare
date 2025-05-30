@@ -139,7 +139,7 @@ const ToolDetail = () => {
                   to={`/profile/${tool.profiles.id}`}
                   className={styles.ownerLink}
                 >
-                  {tool.profiles.full_name || tool.profiles.email}
+                  {isOwner ? "Me" : tool.profiles.full_name}
                 </Link>
               ) : (
                 <span>{tool.profiles?.full_name || "Unknown"}</span>

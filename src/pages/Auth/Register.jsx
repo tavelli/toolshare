@@ -43,7 +43,7 @@ const Register = () => {
             <form onSubmit={handleSubmit} className={styles.form}>
               {error && <div className={styles.error}>{error}</div>}
               <div className={styles.field}>
-                <label htmlFor="fullName">Full Name</label>
+                <label htmlFor="fullName">Name</label>
                 <input
                   id="fullName"
                   type="text"

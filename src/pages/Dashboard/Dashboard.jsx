@@ -255,7 +255,7 @@ const Dashboard = () => {
                 <form
                   onSubmit={handleEditSubmit}
                   className={styles.form}
-                  style={{maxWidth: 800, margin: "0 auto"}}
+                  style={{margin: "0 auto"}}
                 >
                   {editError && <div className={styles.error}>{editError}</div>}
                   <div className={styles.formGrid}>
