@@ -67,7 +67,7 @@ const Home = () => {
       <div className={styles.hero}>
         <div className="container">
           <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>Morely Tool Share</h1>
+            <h1 className={styles.heroTitle}>Morley Tool Share</h1>
             <p className={styles.heroSubtitle}>
               Share your infrequently used tools with your neighbors!
             </p>

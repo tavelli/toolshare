@@ -36,7 +36,7 @@ const Register = () => {
       <div className="container">
         <div className={styles.authContainer}>
           <div className={styles.authCard}>
-            <h1 className={styles.title}>Join ToolShare</h1>
+            <h1 className={styles.title}>Join the Morley Tool Share</h1>
             <p className={styles.subtitle}>
               Create your account to start sharing
             </p>

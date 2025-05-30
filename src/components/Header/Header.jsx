@@ -20,7 +20,6 @@ const Header = () => {
         <div className={styles.headerContent}>
           <Link to="/" className={styles.logo}>
             <span className={styles.logoIcon}>🔧</span>
-            Toolshare
           </Link>
 
           <nav className={styles.nav}>

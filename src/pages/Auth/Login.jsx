@@ -54,7 +54,7 @@ const Login = () => {
         <div className={styles.authContainer}>
           <div className={styles.authCard}>
             <h1 className={styles.title}>Welcome back</h1>
-            <p className={styles.subtitle}>Sign in to your ToolShare account</p>
+            <p className={styles.subtitle}>Sign in to your account</p>
             <form onSubmit={handleSubmit} className={styles.form}>
               {error && <div className={styles.error}>{error}</div>}
               <div className={styles.field}>
