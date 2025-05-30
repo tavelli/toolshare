@@ -407,6 +407,50 @@
   margin-bottom: 24px;
 }
 
+.requestsTableWrapper {
+  overflow-x: auto;
+  margin-bottom: 32px;
+}
+
+.requestsTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.requestsTable th,
+.requestsTable td {
+  padding: 16px 12px;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 15px;
+}
+
+.requestsTable th {
+  background: #eee;
+  color: #233d4d;
+  font-weight: 600;
+}
+
+.requestsTable tr:last-child td {
+  border-bottom: none;
+}
+
+.statusCell {
+  min-width: 100px;
+}
+
+@media (max-width: 700px) {
+  .requestsTable th,
+  .requestsTable td {
+    padding: 10px 6px;
+    font-size: 13px;
+  }
+}
+
 @media (max-width: 768px) {
   .header {
     flex-direction: column;

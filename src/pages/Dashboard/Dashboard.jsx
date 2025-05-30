@@ -357,92 +357,92 @@ const Dashboard = () => {
           {/* Incoming Requests */}
           <section className={styles.section}>
             <h2>Requests for My Tools ({borrowRequests.length})</h2>
-            <div className={styles.requestsList}>
-              {borrowRequests.map((request) => (
-                <div key={request.id} className={styles.requestCard}>
-                  <div className={styles.requestInfo}>
-                    <h3>{request.profiles?.full_name}</h3>
-                    <p>
-                      wants to borrow <strong>{request.tools?.name}</strong>
-                    </p>
-                    <p className={styles.requestDate}>
-                      From {new Date(request.start_date).toLocaleDateString()}{" "}
-                      to {new Date(request.end_date).toLocaleDateString()}
-                    </p>
-                    {request.message && (
-                      <p className={styles.message}>"{request.message}"</p>
-                    )}
-                    <p className={styles.location}>
-                      📍 {request.profiles?.location}
-                    </p>
-                  </div>
-                  <div className={styles.requestActions}>
-                    <span
-                      className={`${styles.status} ${styles[request.status]}`}
-                    >
-                      {request.status}
-                    </span>
-                    {request.status === "pending" && (
-                      <div className={styles.actionButtons}>
-                        <button
-                          onClick={() =>
-                            handleRequestResponse(request.id, "approved")
-                          }
-                          className={styles.approveButton}
+            <div className={styles.requestsTableWrapper}>
+              <table className={styles.requestsTable}>
+                <thead>
+                  <tr>
+                    <th>Borrower</th>
+                    <th>Tool</th>
+                    <th>Dates</th>
+                    <th>Message</th>
+                    {/* <th>Status</th> */}
+                  </tr>
+                </thead>
+                <tbody>
+                  {borrowRequests.map((request) => (
+                    <tr key={request.id}>
+                      <td>{request.profiles?.full_name}</td>
+                      <td>{request.tools?.name}</td>
+                      <td>
+                        {new Date(request.start_date).toLocaleDateString()} -{" "}
+                        {new Date(request.end_date).toLocaleDateString()}
+                      </td>
+                      <td>{request.message || "-"}</td>
+                      {/* <td className={styles.statusCell}>
+                        <span
+                          className={`${styles.status} ${
+                            styles[request.status]
+                          }`}
                         >
-                          Approve
-                        </button>
-                        <button
-                          onClick={() =>
-                            handleRequestResponse(request.id, "rejected")
-                          }
-                          className={styles.rejectButton}
-                        >
-                          Reject
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-              {borrowRequests.length === 0 && (
-                <p className={styles.emptyState}>
-                  No requests for your tools yet.
-                </p>
-              )}
+                          {request.status}
+                        </span>
+                      </td> */}
+                    </tr>
+                  ))}
+                  {borrowRequests.length === 0 && (
+                    <tr>
+                      <td colSpan={5} className={styles.emptyState}>
+                        No requests for your tools yet.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
             </div>
           </section>
 
           {/* My Requests */}
           <section className={styles.section}>
             <h2>My Borrow Requests ({myRequests.length})</h2>
-            <div className={styles.requestsList}>
-              {myRequests.map((request) => (
-                <div key={request.id} className={styles.requestCard}>
-                  <div className={styles.requestInfo}>
-                    <h3>{request.tools?.name}</h3>
-                    <p className={styles.requestDate}>
-                      From {new Date(request.start_date).toLocaleDateString()}
-                      to {new Date(request.end_date).toLocaleDateString()}
-                    </p>
-                    {request.message && (
-                      <p className={styles.message}>"{request.message}"</p>
-                    )}
-                  </div>
-                  <div className={styles.requestActions}>
-                    <span
-                      className={`${styles.status} ${styles[request.status]}`}
-                    >
-                      {request.status}
-                    </span>
-                  </div>
-                </div>
-              ))}
-              {myRequests.length === 0 && (
-                <p className={styles.emptyState}>
-                  You haven't made any borrow requests yet.
-                </p>
-              )}
+            <div className={styles.requestsTableWrapper}>
+              <table className={styles.requestsTable}>
+                <thead>
+                  <tr>
+                    <th>Tool</th>
+                    <th>Dates</th>
+                    <th>Message</th>
+                    {/* <th>Status</th> */}
+                  </tr>
+                </thead>
+                <tbody>
+                  {myRequests.map((request) => (
+                    <tr key={request.id}>
+                      <td>{request.tools?.name}</td>
+                      <td>
+                        {new Date(request.start_date).toLocaleDateString()} -{" "}
+                        {new Date(request.end_date).toLocaleDateString()}
+                      </td>
+                      <td>{request.message || "-"}</td>
+                      {/* <td className={styles.statusCell}>
+                        <span
+                          className={`${styles.status} ${
+                            styles[request.status]
+                          }`}
+                        >
+                          {request.status}
+                        </span>
+                      </td> */}
+                    </tr>
+                  ))}
+                  {myRequests.length === 0 && (
+                    <tr>
+                      <td colSpan={4} className={styles.emptyState}>
+                        You haven't made any borrow requests yet.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
             </div>
           </section>
         </div>
