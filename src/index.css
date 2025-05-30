@@ -39,7 +39,7 @@ input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  border-color: #ff385c;
+  border-color: #f96302;
 }
 
 .container {
