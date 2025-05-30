@@ -73,6 +73,7 @@ const Home = () => {
               onChange={(e) => setSelectedCategory(e.target.value)}
               className={styles.categorySelect}
             >
+              <option value="All Categories">All Categories</option>
               {categories.map((category) => (
                 <option key={category} value={category}>
                   {category}
