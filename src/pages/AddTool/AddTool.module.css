@@ -1,6 +1,7 @@
 .addTool {
   padding: 40px 0;
   min-height: calc(100vh - 80px);
+  background: #f7f7f7;
 }
 
 .header {

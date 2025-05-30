@@ -54,14 +54,6 @@ const Home = () => {
     return matchesSearch && matchesCategory;
   });
 
-  if (loading) {
-    return (
-      <div className={styles.loading}>
-        <div className="container">Loading tools...</div>
-      </div>
-    );
-  }
-
   return (
     <div className={styles.home}>
       <div className={styles.hero}>
@@ -103,15 +95,18 @@ const Home = () => {
       <div className={styles.toolsSection}>
         <div className="container">
           <div className={styles.toolsGrid}>
-            {filteredTools.map((tool) => (
-              <ToolCard key={tool.id} tool={tool} />
-            ))}
+            {loading ? (
+              <div className={styles.loading}>Loading tools...</div>
+            ) : filteredTools.length > 0 ? (
+              filteredTools.map((tool) => (
+                <ToolCard key={tool.id} tool={tool} />
+              ))
+            ) : (
+              <div className={styles.noResults}>
+                <p>No tools found matching your criteria.</p>
+              </div>
+            )}
           </div>
-          {filteredTools.length === 0 && (
-            <div className={styles.noResults}>
-              <p>No tools found matching your criteria.</p>
-            </div>
-          )}
         </div>
       </div>
     </div>

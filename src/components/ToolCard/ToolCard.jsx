@@ -13,7 +13,23 @@ const ToolCard = ({tool}) => {
         )}
       </div>
       <div className={styles.content}>
-        <h3 className={styles.name}>{tool.name}</h3>
+        <div className={styles.headerRow}>
+          <h3 className={styles.name}>{tool.name}</h3>
+          {tool.created_at &&
+            (() => {
+              const createdDate = new Date(tool.created_at);
+              const now = new Date();
+              const oneWeekAgo = new Date(
+                now.getFullYear(),
+                now.getMonth(),
+                now.getDate() - 7
+              );
+              if (createdDate > oneWeekAgo) {
+                return <span className={styles.newBadge}>NEW</span>;
+              }
+              return null;
+            })()}
+        </div>
         <div className={styles.category}>{tool.category}</div>
       </div>
     </Link>
