@@ -92,14 +92,6 @@ const Profile = () => {
       <div className="container">
         <div className={styles.profileHeader}>
           <h1>Profile</h1>
-          {isOwnProfile && !editMode && (
-            <button
-              className={styles.editButton}
-              onClick={() => setEditMode(true)}
-            >
-              Edit Profile
-            </button>
-          )}
         </div>
         <div className={styles.profileInfo}>
           {editMode ? (
@@ -150,20 +142,42 @@ const Profile = () => {
               <div className={styles.profileField}>
                 <strong>Name:</strong> {profile.full_name}
               </div>
+              {isOwnProfile && (
+                <>
+                  <div className={styles.profileField}>
+                    <strong>Email:</strong> {user.email}
+                  </div>
+                  <div className={styles.profileField}>
+                    <strong>Location:</strong>{" "}
+                    {profile.location || "Not specified"}
+                  </div>
+                </>
+              )}
             </>
           )}
         </div>
-        <div className={styles.toolsSection}>
-          <h2>Tools Shared by {profile.full_name || "User"}</h2>
-          <div className={styles.toolsGrid}>
-            {tools.map((tool) => (
-              <ToolCard key={tool.id} tool={tool} />
-            ))}
-            {tools.length === 0 && (
-              <p className={styles.emptyState}>No tools shared yet.</p>
-            )}
+        {isOwnProfile && !editMode && (
+          <button
+            className={styles.editButton}
+            onClick={() => setEditMode(true)}
+          >
+            Edit Profile
+          </button>
+        )}
+
+        {!isOwnProfile && (
+          <div className={styles.toolsSection}>
+            <h2>Tools Shared by {profile.full_name || "User"}</h2>
+            <div className={styles.toolsGrid}>
+              {tools.map((tool) => (
+                <ToolCard key={tool.id} tool={tool} />
+              ))}
+              {tools.length === 0 && (
+                <p className={styles.emptyState}>No tools shared yet.</p>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
