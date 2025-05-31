@@ -23,7 +23,11 @@ const Login = () => {
 
     const {error} = await signIn(email, password);
     if (error) {
-      setError(error.message);
+      const errorMsg =
+        error.message === "email_not_confirmed"
+          ? "Check your email to confirm your account"
+          : error.message;
+      setError(errorMsg);
     } else {
       navigate("/dashboard");
     }
